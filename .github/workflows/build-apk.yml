@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
     paths: ["mobile/**", ".github/workflows/build-apk.yml"]
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,3 +31,10 @@ jobs:
         with:
           name: tv-signals-apk
           path: mobile/android/app/build/outputs/apk/release/app-release.apk
+      - name: Publish APK as "latest" release (direct phone download)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: TV Signals (latest build)
+          make_latest: true
+          files: mobile/android/app/build/outputs/apk/release/app-release.apk
