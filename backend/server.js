@@ -63,8 +63,10 @@ app.post("/webhook/:secret", async (req, res) => {
   }
   const sig = { id: Date.now().toString() + Math.random().toString(36).slice(2, 6), receivedAt: new Date().toISOString(), ...body };
   res.sendStatus(200); // reply fast; TradingView times out after ~3s
-  sig.summary = await aiSummary(sig);
+  // Store first so the MT5 executor sees it right away (AI summary can take a few seconds)
   db.signals.unshift(sig); db.signals = db.signals.slice(0, 500);
+  save();
+  sig.summary = await aiSummary(sig);
   sig.pushed = await push(sig);
   save();
 });
@@ -72,6 +74,13 @@ app.post("/webhook/:secret", async (req, res) => {
 // Mobile app endpoints (protected by same secret)
 const auth = (req, res, next) => (req.get("x-app-key") === SECRET ? next() : res.sendStatus(401));
 app.get("/signals", auth, (req, res) => res.json(db.signals.slice(0, 100)));
+// MT5 executor: signals newer than ?after=<id>, oldest first
+app.get("/mt5/signals", auth, (req, res) => {
+  const after = String(req.query.after || "");
+  const list = [];
+  for (const s of db.signals) { if (after && s.id <= after) break; list.push(s); }
+  res.json(list.reverse());
+});
 app.post("/register", auth, (req, res) => {
   const { token } = req.body || {};
   if (token && !db.tokens.includes(token)) { db.tokens.push(token); save(); }
