@@ -57,5 +57,8 @@ Dapat lumabas sa app at may notification.
 - Para sa **instant** push kahit sarado ang app, kailangan ng Firebase (libre). Pwede itong idagdag sa susunod na bersyon.
 - Tip: sa phone settings, i-off ang battery optimization para sa TV Signals.
 
+## Auto-execute sa MT5 (Windows)
+Gusto mong i-execute ng MT5 mo ang bawat signal? Tingnan ang [`mt5-executor/README.md`](mt5-executor/README.md).
+
 ## Optional: AI summary
 Ilagay ang `ANTHROPIC_API_KEY` sa Render environment para may maikling AI paliwanag ang bawat signal.

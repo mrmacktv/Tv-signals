@@ -1,0 +1,32 @@
+{
+  "source": "gmail",
+  "gmail_address": "you@gmail.com",
+  "gmail_app_password": "xxxx xxxx xxxx xxxx",
+  "gmail_from": "noreply@tradingview.com",
+
+  "backend_url": "https://YOUR-URL.onrender.com",
+  "backend_secret": "YOUR_WEBHOOK_SECRET",
+
+  "lot": 0.01,
+  "lots": { "XAUUSD": 0.01 },
+  "symbol_map": { "XAUUSD": "XAUUSD", "BTCUSDT": "BTCUSD" },
+  "symbol_suffix": "",
+  "watch_symbols": [],
+  "default_symbol": "",
+
+  "use_signal_sl_tp": true,
+  "sl_points": 0,
+  "tp_points": 0,
+  "slippage_points": 30,
+
+  "close_opposite": true,
+  "one_position_per_symbol": true,
+  "manage_all_positions": false,
+  "max_signal_age_seconds": 300,
+  "poll_seconds": 3,
+
+  "magic": 20261112,
+  "mt5_path": "",
+  "dry_run": false,
+  "allow_live": false
+}
